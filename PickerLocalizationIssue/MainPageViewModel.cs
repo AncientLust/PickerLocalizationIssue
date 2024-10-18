@@ -12,10 +12,10 @@ public partial class MainPageViewModel : ObservableObject
     [ObservableProperty] private List<DummyOption> dummyOptions;
     [ObservableProperty] private LanguageOption languagePicked;
     [ObservableProperty] private DummyOption dummyPicked;
-    
+    public BindingBase DisplayBinding { get; } = new Binding("Localization", converter: new TranslateConverter());
+
     private readonly ILocalizationResourceManager _resourceManager;
     private readonly bool _isInitialized;
-    public event EventHandler NotifyLanguagePicked;
 
     public MainPageViewModel(ILocalizationResourceManager resourceManager)
     {
@@ -48,11 +48,11 @@ public partial class MainPageViewModel : ObservableObject
         {
             case ELanguage.English:
                 _resourceManager.CurrentCulture = new CultureInfo("en");
-                NotifyLanguagePicked?.Invoke(this, EventArgs.Empty);
+                OnPropertyChanged(nameof(DisplayBinding));
                 break;
             case ELanguage.Polish:
                 _resourceManager.CurrentCulture = new CultureInfo("pl");
-                NotifyLanguagePicked?.Invoke(this, EventArgs.Empty);
+                OnPropertyChanged(nameof(DisplayBinding));
                 break;
 
             default:

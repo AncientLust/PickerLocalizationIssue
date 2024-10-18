@@ -25,14 +25,14 @@
                 x:Name="picker1"
                 ItemsSource="{Binding LanguageOptions}"
                 SelectedItem ="{Binding LanguagePicked, Mode=TwoWay}"
-                ItemDisplayBinding="{Binding Localization, Converter={viewmodel:TranslateConverter}}">
+                ItemDisplayBinding="{Binding DisplayBinding}">
             </Picker>
 
             <Picker
                 x:Name="picker2"
                 ItemsSource="{Binding DummyOptions}"
                 SelectedItem ="{Binding DummyPicked, Mode=TwoWay}"
-                ItemDisplayBinding="{Binding Localization, Converter={viewmodel:TranslateConverter}}">
+                ItemDisplayBinding="{Binding DisplayBinding}">
             </Picker>
 
         </VerticalStackLayout>
