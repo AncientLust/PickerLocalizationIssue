@@ -24,13 +24,13 @@
             <Picker
                 ItemsSource="{Binding LanguageOptions}"
                 SelectedItem ="{Binding LanguagePicked, Mode=TwoWay}"
-                ItemDisplayBinding="{localization:TranslateBinding Localization, TranslateValue=True}">
+                ItemDisplayBinding="{Binding DisplayBinding}">
             </Picker>
             
             <Picker
                 ItemsSource="{Binding DummyOptions}"
                 SelectedItem ="{Binding DummyPicked, Mode=TwoWay}"
-                ItemDisplayBinding="{localization:TranslateBinding Localization, TranslateValue=True}">
+                ItemDisplayBinding="{Binding DisplayBinding}">
             </Picker>
             
         </VerticalStackLayout>
