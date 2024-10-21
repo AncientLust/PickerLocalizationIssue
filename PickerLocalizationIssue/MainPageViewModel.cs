@@ -6,21 +6,21 @@ using PickerLocalizationIssue.Resources.Localization;
 
 namespace PickerLocalizationIssue;
 
+public class TranslateConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => (value is string s) ? PickerLocalizationIssue.Resources.Localization.AppResources.ResourceManager.GetString(s) : null;
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotImplementedException();
+}
+
 public partial class MainPageViewModel : ObservableObject
 {
     [ObservableProperty] private List<LanguageOption> languageOptions;
     [ObservableProperty] private List<DummyOption> dummyOptions;
     [ObservableProperty] private LanguageOption languagePicked;
     [ObservableProperty] private DummyOption dummyPicked;
-    public BindingBase DisplayBinding { get; } = new Binding("Localization", converter: new TranslateConverter());
-
-    internal class TranslateConverter : IValueConverter
-    {
-        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-            => (value is string s) ? PickerLocalizationIssue.Resources.Localization.AppResources.ResourceManager.GetString(s) : null;
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-            => throw new NotImplementedException();
-    }
+    public event EventHandler NotifyLanguagePicked;
 
     private readonly ILocalizationResourceManager _resourceManager;
     private readonly bool _isInitialized;
@@ -56,11 +56,11 @@ public partial class MainPageViewModel : ObservableObject
         {
             case ELanguage.English:
                 _resourceManager.CurrentCulture = new CultureInfo("en");
-                OnPropertyChanged(nameof(DisplayBinding));
+                NotifyLanguagePicked?.Invoke(this, new EventArgs());
                 break;
             case ELanguage.Polish:
                 _resourceManager.CurrentCulture = new CultureInfo("pl");
-                OnPropertyChanged(nameof(DisplayBinding));
+                NotifyLanguagePicked?.Invoke(this, new EventArgs());
                 break;
 
             default:
