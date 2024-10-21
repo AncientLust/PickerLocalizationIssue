@@ -22,15 +22,17 @@
                 SemanticProperties.HeadingLevel="Level1" />
 
             <Picker
+                x:Name="picker1"
                 ItemsSource="{Binding LanguageOptions}"
                 SelectedItem ="{Binding LanguagePicked, Mode=TwoWay}"
-                ItemDisplayBinding="{Binding DisplayBinding}">
+                ItemDisplayBinding="{Binding Localization, Converter={viewmodel:TranslateConverter}}">
             </Picker>
             
             <Picker
+                x:Name="picker2"
                 ItemsSource="{Binding DummyOptions}"
                 SelectedItem ="{Binding DummyPicked, Mode=TwoWay}"
-                ItemDisplayBinding="{Binding DisplayBinding}">
+                ItemDisplayBinding="{Binding Localization, Converter={viewmodel:TranslateConverter}}">
             </Picker>
             
         </VerticalStackLayout>
